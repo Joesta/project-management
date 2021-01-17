@@ -1,4 +1,4 @@
-package com.robusttech.pma;
+ package za.co.robusttech.pma;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
