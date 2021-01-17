@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Add Employee</title>
-</head>
+
+<head th:replace="layouts :: header"></head>
+
 <body>
+
+<nav th:replace="layouts :: navbar"></nav>
 
 <form action="/employees/save" method="POST" th:object="${employee}">
 

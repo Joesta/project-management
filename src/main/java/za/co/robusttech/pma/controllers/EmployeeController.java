@@ -21,7 +21,7 @@ public class EmployeeController {
 	public String employeFormData(Model model) {
 		model.addAttribute("employee", new Employee());
 
-		return "new-employee";
+		return "employees/new-employee";
 	}
 
 	@PostMapping("/save")
