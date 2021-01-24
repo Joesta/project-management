@@ -1,5 +1,7 @@
 package za.co.robusttech.pma.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +17,7 @@ import za.co.robusttech.pma.entities.Employee;
 public class EmployeeController {
 
 	@Autowired
-	IEmployeeRepository repository;
+	IEmployeeRepository employeeRepo;
 
 	@GetMapping("/new")
 	public String employeFormData(Model model) {
@@ -26,7 +28,15 @@ public class EmployeeController {
 
 	@PostMapping("/save")
 	public String createEmployee(Employee employee, Model mode) {
-		repository.save(employee);
+		employeeRepo.save(employee);
 		return "redirect:/employees/new";
+	}
+	
+	@GetMapping
+	public String getEmployees(Model model) {
+		List<Employee> employees = employeeRepo.findAll();
+		model.addAttribute("employees", employees);
+		
+		return "employees/view-employees";
 	}
 }

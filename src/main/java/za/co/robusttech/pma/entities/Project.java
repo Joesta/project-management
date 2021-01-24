@@ -1,15 +1,22 @@
 package za.co.robusttech.pma.entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Project {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long projectId;
 
 	private String name;
@@ -17,6 +24,13 @@ public class Project {
 	private String stage; // categorizes projects into states: NOTSTARTED, COMPLETED, INPROGRESS
 
 	private String description;
+
+	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE,
+			CascadeType.PERSIST }, fetch = FetchType.LAZY)
+	@JoinTable(name = "PROJECT_EMPLOYEE", 
+	joinColumns = @JoinColumn(name = "project_id"), 
+	inverseJoinColumns = @JoinColumn(name = "employee_id"))
+	private List<Employee> employees;
 
 	public Project() {
 	}
@@ -58,5 +72,13 @@ public class Project {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
 	}
 }
